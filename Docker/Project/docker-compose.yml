@@ -8,7 +8,7 @@ services:
 
     api:
         build: ./
-        image: docker.io/srilathab/simple_blog_api
+        image: docker.io/srilathabhuvangiri/simple_blog_api
         environment:
             - POSTGRES_USERNAME=postgres
             - POSTGRES_HOST=postgres
