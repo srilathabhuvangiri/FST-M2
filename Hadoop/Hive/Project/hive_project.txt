@@ -1,0 +1,12 @@
+--Drop the tales
+DROP TABLE files;
+DROP TABLE character_count;
+--Create the files table
+CREATE TABLE files(line STRING);
+--Loading data into the files table
+LOAD DATA INPATH 'hdfs:///user/srilatha/inputs/' INTO TABLE files;
+--Count the number of characters
+CREATE TABLE charecter_count AS
+SELECT character, COUNT(character) AS character_count FROM(SELECT explode(split(line, '\t')) AS character FROM files) c
+GROUP by character
+ORDER BY character_count DESC;
