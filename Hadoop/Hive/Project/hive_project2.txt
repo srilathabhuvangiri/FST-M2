@@ -1,0 +1,19 @@
+--Drop the tales
+DROP TABLE files;
+DROP TABLE line_count;
+
+--Create the files table
+CREATE TABLE files(line STRING);
+--Loading data into the files table
+LOAD DATA INPATH 'hdfs:///user/srilatha/inputs/episodeIV_dialogues.txt' INTO TABLE files;
+
+--Count the number lines has words Luke
+CREATE TABLE line_count AS
+SELECT COUNT(*) AS total_count FROM files
+WHERE line like '%Luke%';
+
+--Save results in HDFS
+INSERT OVERWRITE DIRECTORY 'hdfs:///user/srilatha/HiveProject2Output'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ':'
+SELECT * FROM line_count;
+~                          
